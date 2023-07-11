@@ -1,10 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { SearchComponent } from './search.component';
-
-import Spy = jasmine.Spy;
 
 describe('SearchComponent', () => {
   let component: SearchComponent;
@@ -13,8 +11,8 @@ describe('SearchComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SearchComponent ],
-      imports: [],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      imports: [ ReactiveFormsModule ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));
@@ -29,5 +27,18 @@ describe('SearchComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // IMPLEMENT TESTS HERE
+  it('should emit searchCity event with the entered city when search button is clicked', () => {
+    const city = 'London';
+    spyOn(component.searchCity, 'emit');
+    const inputElement = fixture.nativeElement.querySelector('input');
+    const buttonElement = fixture.nativeElement.querySelector('button');
+
+    inputElement.value = city;
+    inputElement.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    buttonElement.click();
+
+    expect(component.searchCity.emit).toHaveBeenCalledWith(city);
+  });
 });

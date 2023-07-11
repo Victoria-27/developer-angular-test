@@ -1,0 +1,2 @@
+<app-search (searchCity)="citySearch($event)"></app-search>
+<app-results [cities]="(weather$ | async)"></app-results>

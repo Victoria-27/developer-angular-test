@@ -1,15 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html'
 })
 export class SearchComponent {
-  // IMPLEMENT ANY INPUT OR OUTPUT YOU MIGHT NEED
+  @Output() searchCity: EventEmitter<string> = new EventEmitter<string>();
+  cityForm: FormGroup;
 
-  constructor() { }
+  constructor() {
+    this.cityForm = new FormGroup({
+      city: new FormControl()
+    });
+  }
+
 
   search() {
-    // TO BE IMPLEMENTED
+    const city = this.cityForm.get('city')?.value;
+    if (city) {
+      this.searchCity.emit(city);
+      this.cityForm.reset();
+    } else { 
+      alert('Please enter a city name')
+    }
   }
 }

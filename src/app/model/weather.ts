@@ -63,3 +63,10 @@ export interface Weather {
 export interface Summary {
   city: string;
 }
+
+export type ForecastObj = {
+  first: number;
+  second: number;
+  third: number;
+  fourth: number;
+}

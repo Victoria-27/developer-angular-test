@@ -1,29 +1,27 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { WeatherContainer } from './weather.container';
-import { WeatherService } from './weather.service';
-import { SearchComponent } from './components/search/search.component';
-import { ResultsComponent } from './components/results/results.component';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { WeatherEffects } from "./store/effects/weather.effects";
 
-
-// IF YOU DECIDE TO USE NG-RX YOU'LL NEED TO UNCOMMENT SOME LINES
-// import { StoreModule } from '@ngrx/store';
-// import { EffectsModule } from '@ngrx/effects';
-// import { reducers, effects } from './store';
+import { WeatherContainer } from "./weather-container.component";
+import { WeatherService } from "../services/weather.service";
+import { SearchComponent } from "./components/search/search.component";
+import { ResultsComponent } from "./components/results/results.component";
+import { weatherReducer } from "./store/reducers/weather.reducers";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { ToastrModule } from "ngx-toastr";
 
 @NgModule({
   imports: [
     CommonModule,
-    // StoreModule.forFeature('weather', reducers),
-    // EffectsModule.forFeature(effects)
+    StoreModule.forFeature("weather", weatherReducer),
+    EffectsModule.forFeature([WeatherEffects]),
+    ReactiveFormsModule,
+    FormsModule,
+    ToastrModule.forRoot(),
   ],
-  declarations: [
-    SearchComponent,
-    ResultsComponent,
-    WeatherContainer
-  ],
-  providers: [
-    WeatherService
-  ]
+  declarations: [SearchComponent, ResultsComponent, WeatherContainer],
+  providers: [WeatherService],
 })
-export class WeatherModule { }
+export class WeatherModule {}

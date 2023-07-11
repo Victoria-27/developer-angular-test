@@ -1,20 +1,27 @@
 <table class="table">
   <thead class="thead-dark">
-  <tr>
-    <th scope="col">City</th>
-    <th scope="col">6 AM</th>
-    <th scope="col">12 PM</th>
-    <th scope="col">6 PM</th>
-    <th scope="col">12 AM</th>
-  </tr>
+    <tr>
+      <th scope="col">City</th>
+      <th scope="col">6 AM</th>
+      <th scope="col">12 PM</th>
+      <th scope="col">6 PM</th>
+      <th scope="col">12 AM</th>
+      <th scope="col">
+        <button class="btn btn-danger" (click)="clearTable()">Clear Table</button>
+      </th>
+
+    </tr>
   </thead>
   <tbody>
-  <tr>
-    <td scope="row">London</td>
-    <td scope="row">3 &deg;</td>
-    <td scope="row">12.5 &deg;</td>
-    <td scope="row">9 &deg;</td>
-    <td scope="row">2 &deg;</td>
-  </tr>
+    <tr *ngFor="let result of searchResult">
+      <td scope="row">{{ result.name }}</td>
+      <td scope="row">{{ result.forecast.first}} °</td>
+      <td scope="row">{{ result.forecast.second }} °</td>
+      <td scope="row">{{ result.forecast.third }} °</td>
+      <td scope="row">{{ result.forecast.fourth }} °</td>
+      <td scope="row">
+        <button class="btn btn-danger" (click)="delete(result.name)">Delete</button>
+      </td>
+    </tr>
   </tbody>
 </table>
